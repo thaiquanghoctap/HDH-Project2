@@ -48,16 +48,73 @@
 //	are in machine.h.
 //----------------------------------------------------------------------
 
-void
-ExceptionHandler(ExceptionType which)
+void ExceptionHandler(ExceptionType which)
 {
     int type = machine->ReadRegister(2);
 
-    if ((which == SyscallException) && (type == SC_Halt)) {
-	DEBUG('a', "Shutdown, initiated by user program.\n");
-   	interrupt->Halt();
-    } else {
-	printf("Unexpected user mode exception %d %d\n", which, type);
-	ASSERT(FALSE);
+    switch (which)
+    {
+        case NoException:
+            return;
+        case PageFaultException:
+            printf("Exception: PageFaultException");
+            interrupt->Halt();
+            break;
+        case ReadOnlyException:
+            printf("Exception: ReadOnlyException");
+            interrupt->Halt();
+            break;
+        case BusErrorException:
+            printf("Exception: BusErrorException");
+            interrupt->Halt();
+            break;
+        case AddressErrorException:
+            printf("Exception: AddressErrorException");
+            interrupt->Halt();
+            break;
+        case OverflowException:
+            printf("Exception: OverflowException");
+            interrupt->Halt();
+            break;
+        case IllegalInstrException:
+            printf("Exception: IllegalInstrException");
+            interrupt->Halt();
+            break;
+        case NumExceptionTypes:
+            printf("Exception: NumExceptionTypes");
+            interrupt->Halt();
+            break;
+        case SyscallException:
+            switch (type)
+            {
+                case SC_Halt:
+                    DEBUG('a', "Shutdown, initiated by user program.\n");
+                    interrupt->Halt();
+                    break;
+                case SC_ReadInt:
+                    //Dien code ...
+                    machine->IncreasePC();
+                    break;
+                case SC_PrintInt:
+                    //Dien code ...
+                    machine->IncreasePC();
+                    break;
+                case SC_ReadChar:
+                    //Dien code ...
+                    machine->IncreasePC();
+                    break;
+                case SC_PrintChar:
+                    //Dien code ...
+                    machine->IncreasePC();
+                    break;
+                case SC_ReadString:
+                    //Dien code ...
+                    machine->IncreasePC();
+                    break;
+                case SC_PrintString:
+                    //Dien code ...
+                    machine->IncreasePC();
+                    break
+            }
     }
 }
