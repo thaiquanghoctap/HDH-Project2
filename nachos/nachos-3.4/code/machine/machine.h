@@ -117,7 +117,9 @@ class Machine {
 
     void WriteRegister(int num, int value);
 				// store a value into a CPU register
-
+    void IncreasePC();
+    char* User2System(int virtAddr, int limit);
+    int System2User(int virtAddr, int len, char* buffer);
 
 // Routines internal to the machine simulation -- DO NOT call these 
 

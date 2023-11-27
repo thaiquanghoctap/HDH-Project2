@@ -114,7 +114,7 @@ void ExceptionHandler(ExceptionType which)
                 case SC_PrintString:
                     //Dien code ...
                     machine->IncreasePC();
-                    break
+                    break;
             }
     }
 }
